@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Individual</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="main-cont">
+          <div class="form-cont">
+            <form method="POST" id="form">
+              <input
+                id="csrf_token"
+                name="csrf_token"
+                type="hidden"
+                value="IjY4NzEwYmZjZmViYjIyY2Y0YTE5NDhlOTgwZjM5MTQ5OWM0OGExMTYi.aWJp9g.Yi9gqmSMPdWSatHIcToApPKGtKA"
+              />
+
+              <!-- ===== GROSS SALARY ===== -->
+              <div class="form-section">
+                <h3>Gross Salary</h3>
+                <div class="form-grid gross-salary">
+                  <div class="input-group">
+                    <label for="salary">Basic Salary</label>
+                    <input
+                      class="number-format"
+                      id="salary"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="salary"
+                      required
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="utility">Utility Allowance</label>
+                    <input
+                      class="number-format"
+                      id="utility"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="utility"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="house_rent">House Rent Allowance (HRA)</label>
+                    <input
+                      class="number-format"
+                      id="house_rent"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="house_rent"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="medical">Medical Allowance</label>
+                    <input
+                      class="number-format"
+                      id="medical"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="medical"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="other_allowances">Other Allowances</label>
+                    <input
+                      class="number-format"
+                      id="other_allowances"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="other_allowances"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+                </div>
+                <div class="total-line">
+                  Total Gross Salary: <span id="total-gross">0</span>
+                </div>
+              </div>
+
+              <!-- ===== PENSION INFORMATION ===== -->
+              <div class="form-section">
+                <h3>Pension Information</h3>
+                <div class="form-grid">
+                  <div class="radio-group full-width">
+                    <label
+                      >Are you receiving any pension while still
+                      employed?</label
+                    >
+                    <div class="radio-options">
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="receiving_pension_yes"
+                          name="receiving_pension"
+                          value="yes"
+                        />
+                        Yes (Still employed and receiving pension)
+                      </label>
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="receiving_pension_no"
+                          name="receiving_pension"
+                          value="no"
+                          checked
+                        />
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="input-group">
+                    <label for="pension_amount"
+                      >Pension Amount Received (if still employed)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="pension_amount"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="pension_amount"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="age">Age of Pension Recipient</label>
+                    <input
+                      class="number-format"
+                      id="age"
+                      maxlength="3"
+                      minlength="1"
+                      name="age"
+                      type="number"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="radio-group full-width">
+                    <label>Current Employment Status</label>
+                    <div class="radio-options">
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="retired"
+                          name="retirement_status"
+                          value="retired"
+                        />
+                        Retired (Not employed anymore)
+                      </label>
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="still_employed"
+                          name="retirement_status"
+                          value="still_employed"
+                          checked
+                        />
+                        Still Employed
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ===== CASH BENEFITS ===== -->
+              <div class="form-section">
+                <h3>Cash Benefits</h3>
+                <div class="form-grid benefits">
+                  <div class="input-group">
+                    <label for="lfa">Leave Fare Assistance (LFA)</label>
+                    <input
+                      class="number-format"
+                      id="lfa"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="lfa"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="bonus">Bonus</label>
+                    <input
+                      class="number-format"
+                      id="bonus"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="bonus"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="fuel_allowance"
+                      >Fuel Allowance (non-business use)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="fuel_allowance"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="fuel_allowance"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="special_work_allowance"
+                      >Special Work Condition Allowance</label
+                    >
+                    <input
+                      class="number-format"
+                      id="special_work_allowance"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="special_work_allowance"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="overtime">Overtime</label>
+                    <input
+                      class="number-format"
+                      id="overtime"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="overtime"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="vehicle_purchase"
+                      >Lump Sum for Vehicle Purchase/Contribution</label
+                    >
+                    <input
+                      class="number-format"
+                      id="vehicle_purchase"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="vehicle_purchase"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="house_loan_subsidy"
+                      >House Loan Mark-up Subsidy</label
+                    >
+                    <input
+                      class="number-format"
+                      id="house_loan_subsidy"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="house_loan_subsidy"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="obligations_paid"
+                      >Employee's Obligation Paid by Employer</label
+                    >
+                    <input
+                      class="number-format"
+                      id="obligations_paid"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="obligations_paid"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="salary_tax_paid"
+                      >Fixed Salary Tax Paid by Employer</label
+                    >
+                    <input
+                      class="number-format"
+                      id="salary_tax_paid"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="salary_tax_paid"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="termination_amount"
+                      >Termination / Severance Amount</label
+                    >
+                    <input
+                      class="number-format"
+                      id="termination_amount"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="termination_amount"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="other_cash">Other Cash Benefits</label>
+                    <input
+                      class="number-format"
+                      id="other_cash"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="other_cash"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+                </div>
+                <div class="total-line">
+                  Total Cash Benefits: <span id="total-cash">0</span>
+                </div>
+              </div>
+
+              <!-- ===== PERKS ===== -->
+              <div class="form-section">
+                <h3>Perks</h3>
+                <div class="form-grid">
+                  <div class="input-group">
+                    <label for="servant_salary_paid"
+                      >Servant/Driver/Maid Salaries Paid by Employer</label
+                    >
+                    <input
+                      class="number-format"
+                      id="servant_salary_paid"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="servant_salary_paid"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="servant_employee_contribution"
+                      >Employee Contribution towards Servant Salary</label
+                    >
+                    <input
+                      class="number-format"
+                      id="servant_employee_contribution"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="servant_employee_contribution"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="kids_education"
+                      >Kids Education Reimbursement</label
+                    >
+                    <input
+                      class="number-format"
+                      id="kids_education"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="kids_education"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="car_lease"
+                      >Car Lease / Ijara Rentals Reimbursement</label
+                    >
+                    <input
+                      class="number-format"
+                      id="car_lease"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="car_lease"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="utility_reimbursement"
+                      >Utility Bills Reimbursement</label
+                    >
+                    <input
+                      class="number-format"
+                      id="utility_reimbursement"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="utility_reimbursement"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="vehicle_cost"
+                      >Company Provided Vehicle - Cost of Vehicle</label
+                    >
+                    <input
+                      class="number-format"
+                      id="vehicle_cost"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="vehicle_cost"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="radio-group full-width">
+                    <label>Vehicle Usage Type</label>
+                    <div class="radio-options">
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="personal_use_only"
+                          name="vehicle_usage_type"
+                          value="personal_only"
+                          checked
+                        />
+                        Personal Use Only (10%)
+                      </label>
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          id="mixed_use"
+                          name="vehicle_usage_type"
+                          value="mixed_use"
+                        />
+                        Mixed Personal & Business Use (5%)
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="radio-group full-width">
+                    <label>Provident Fund Type</label>
+                    <div class="radio-options">
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          name="pf_type"
+                          value="government"
+                          checked
+                        />
+                        Government PF (100% Exempt)
+                      </label>
+                      <label class="radio-label">
+                        <input type="radio" name="pf_type" value="recognized" />
+                        Recognized by FBR
+                      </label>
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          name="pf_type"
+                          value="unrecognized"
+                        />
+                        Unrecognized by FBR
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="input-group">
+                    <label for="employer_pf_contribution"
+                      >Employer PF Contribution</label
+                    >
+                    <input
+                      class="number-format"
+                      name="employer_pf_contribution"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="pf_interest"
+                      >PF - Interest Received for the Year</label
+                    >
+                    <input
+                      class="number-format"
+                      name="pf_interest"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="pf_accumulated_balance"
+                      >PF - Accumulated Balance as at 30 June</label
+                    >
+                    <input
+                      class="number-format"
+                      name="pf_accumulated_balance"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="fair_market_rent"
+                      >Housing Facility Provided by Employer - Fair Market
+                      Rent</label
+                    >
+                    <input
+                      class="number-format"
+                      id="fair_market_rent"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="fair_market_rent"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="loan_amount"
+                      >Employer Loan Amount (if > 1M)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="loan_amount"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="loan_amount"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="actual_interest_rate"
+                      >Actual Interest Rate Paid (%)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="actual_interest_rate"
+                      maxlength="5"
+                      minlength="1"
+                      name="actual_interest_rate"
+                      type="text"
+                      value="0"
+                      step="0.01"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="asset_transfer"
+                      >Fair Market Value of Asset Transferred</label
+                    >
+                    <input
+                      class="number-format"
+                      id="asset_transfer"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="asset_transfer"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="any_other_perk"
+                      >Any other perk not covered above</label
+                    >
+                    <input
+                      class="number-format"
+                      id="any_other_perk"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="any_other_perk"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+                </div>
+                <div class="total-line">
+                  Total Perks: <span id="total-perks">0</span>
+                </div>
+              </div>
+
+              <!-- ===== SUMMARY ===== -->
+              <h1 class="grand-total-line">
+                Taxable Income Before Deductions:
+                <span id="grand-total-cash">0</span>
+              </h1>
+
+              <!-- ===== DEDUCTIONS ===== -->
+              <div class="form-section">
+                <h3>Exemptions / Deductions</h3>
+                <div class="form-grid">
+                  <div class="input-group">
+                    <label for="zakat"
+                      >Zakat Paid (Zakat & Ushr Ordinance 1980)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="zakat"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="zakat"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="num_children"
+                      >Number of Children (for Education Deduction)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="num_children"
+                      max="10"
+                      min="0"
+                      name="num_children"
+                      type="number"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="education_expenses"
+                      >Tuition Fees Paid (Only if taxable income ≤ Rs
+                      1.5M)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="education_expenses"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="education_expenses"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="medical_expenses"
+                      >Medical Allowance Exemption - 10% of basic salary if
+                      medical facility is not provided -
+                    </label>
+                    <input
+                      class="number-format"
+                      id="medical_expenses"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="medical_expenses"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+                </div>
+                <div class="total-line">
+                  Total Deductions: <span id="total-deductions">0</span>
+                </div>
+              </div>
+
+              <!-- ===== SUMMARY ===== -->
+              <h1 class="grand-total-line">
+                Taxable Income After Deductions:
+                <span id="grand-total-new">0</span>
+              </h1>
+              <h1 class="grand-total-line">
+                Tax Payable Before Tax Credits: <span id="tax-display">0</span>
+              </h1>
+
+              <!-- ===== TAX CREDITS ===== -->
+              <div class="form-section">
+                <h3>Tax Credits</h3>
+                <div class="form-grid">
+                  <div class="credit-group">
+                    <label for="charity_credit"
+                      >Tax Credit - Charitable Institution Contribution
+                    </label>
+                    <div class="credit-input-wrapper">
+                      <input
+                        class="number-format"
+                        id="charity_credit"
+                        maxlength="100000000"
+                        minlength="1"
+                        name="charity_credit"
+                        type="text"
+                        value="0"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="credit-group">
+                    <label for="pension_credit"
+                      >Tax Credit - Pension Fund Contribution</label
+                    >
+                    <div class="credit-input-wrapper">
+                      <input
+                        class="number-format"
+                        id="pension_credit"
+                        maxlength="100000000"
+                        minlength="1"
+                        name="pension_credit"
+                        type="text"
+                        value="0"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="credit-group">
+                    <label for="house_loan_interest_credit"
+                      >Tax Credit - Interest Paid on House Loan</label
+                    >
+                    <div class="credit-input-wrapper">
+                      <input
+                        class="number-format"
+                        id="house_loan_interest_credit"
+                        maxlength="100000000"
+                        minlength="1"
+                        name="house_loan_interest_credit"
+                        type="text"
+                        value="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="total-line">
+                  Total Credits:
+                  <span id="total-credits" class="total-number">0</span>
+                </div>
+              </div>
+
+              <!-- ===== SUMMARY ===== -->
+              <h1 class="grand-total-line">
+                Total Tax Liability:
+                <span id="total-tax-liability-display">0</span>
+              </h1>
+
+              <!-- ===== ADJUSTABLE TAXES ===== -->
+              <div class="form-section">
+                <h3>Adjustable Taxes</h3>
+                <div class="form-grid">
+                  <div class="input-group">
+                    <label for="annual_token_tax">Annual Token Tax</label>
+                    <input
+                      class="number-format"
+                      id="annual_token_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="annual_token_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="vehicle_purchase_tax"
+                      >Vehicle Purchase (Manufacturer)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="vehicle_purchase_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="vehicle_purchase_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="cash_withdrawal_tax">Cash Withdrawal</label>
+                    <input
+                      class="number-format"
+                      id="cash_withdrawal_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="cash_withdrawal_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="electricity_bill_tax"
+                      >Electricity Bills (specific conditions)</label
+                    >
+                    <input
+                      class="number-format"
+                      id="electricity_bill_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="electricity_bill_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="property_purchase_tax">Property Purchase</label>
+                    <input
+                      class="number-format"
+                      id="property_purchase_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="property_purchase_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="property_sale_tax">Property Sale</label>
+                    <input
+                      class="number-format"
+                      id="property_sale_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="property_sale_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="foreign_txn_tax"
+                      >Foreign Card Transactions</label
+                    >
+                    <input
+                      class="number-format"
+                      id="foreign_txn_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="foreign_txn_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="telecom_tax"
+                      >Telephone/Mobile/Internet Bills</label
+                    >
+                    <input
+                      class="number-format"
+                      id="telecom_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="telecom_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="function_tax">Functions/Gatherings</label>
+                    <input
+                      class="number-format"
+                      id="function_tax"
+                      maxlength="100000000"
+                      minlength="1"
+                      name="function_tax"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+                </div>
+                <div class="total-line">
+                  Total Adjustable Taxes: <span id="total-adjustments">0</span>
+                </div>
+              </div>
+
+              <!-- ===== FINAL RESULTS ===== -->
+              <div class="final-results">
+                <h1 class="grand-total-line net-payable">
+                  Net Tax Payable: <span id="net-tax-display2">0</span>
+                </h1>
+                <h1 class="grand-total-line refundable">
+                  Refundable Amount: <span id="refundable-display">0</span>
+                </h1>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+      // Declare these variables globally
+      let debouncedUpdate;
+      let fieldsToUpdate;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("form");
+
+        // Initialize fields
+        fieldsToUpdate = {
+          totalGrossSpan: document.getElementById("total-gross"),
+          totalCashSpan: document.getElementById("total-cash"),
+          totalPerksSpan: document.getElementById("total-perks"),
+          totalDeductionsSpan: document.getElementById("total-deductions"),
+          totalCreditsSpan: document.getElementById("total-credits"),
+          totalAdjustmentsSpan: document.getElementById("total-adjustments"),
+          grandTotalSpan: document.getElementById("grand-total-cash"),
+          grandTotalNewSpan: document.getElementById("grand-total-new"),
+          taxDisplay: document.getElementById("tax-display"),
+          totalTaxLiabilityDisplay: document.getElementById(
+            "total-tax-liability-display",
+          ),
+          netTaxDisplay: document.getElementById("net-tax-display"),
+          netTaxDisplay2: document.getElementById("net-tax-display2"),
+          refundableDisplay: document.getElementById("refundable-display"),
+          charityCredit: document.getElementById("charity-credit-display"),
+          pensionCredit: document.getElementById("pension-credit-display"),
+          houseLoanCredit: document.getElementById("house-loan-credit-display"),
+        };
+
+        console.log("Elements found:", {
+          netTax2: fieldsToUpdate.netTaxDisplay2,
+          refundable: fieldsToUpdate.refundableDisplay,
+        });
+
+        let debounceTimer;
+        let latestController = null;
+
+        function debounce(fn, delay) {
+          return (...args) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => fn(...args), delay);
+          };
+        }
+
+        // Make updateCalculations function global
+        window.updateCalculations = async function () {
+          if (latestController) latestController.abort();
+          latestController = new AbortController();
+          const formData = new FormData(form);
+
+          try {
+            const baseUrl = window.location.origin;
+            const res = await fetch(baseUrl + "/calculate-advance-tax", {
+              method: "POST",
+              body: formData,
+              signal: latestController.signal,
+            });
+
+            if (!res.ok) throw new Error("Network Error");
+            const data = await res.json();
+
+            console.log("API Response:", data); // Debug log
+
+            // Update all fields with proper number formatting
+            if (fieldsToUpdate.totalGrossSpan)
+              fieldsToUpdate.totalGrossSpan.textContent = (
+                data.total_gross || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.totalCashSpan)
+              fieldsToUpdate.totalCashSpan.textContent = (
+                data.total_cash || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.totalPerksSpan)
+              fieldsToUpdate.totalPerksSpan.textContent = (
+                data.total_perks || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.totalDeductionsSpan)
+              fieldsToUpdate.totalDeductionsSpan.textContent = (
+                data.total_exemptions || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.totalCreditsSpan)
+              fieldsToUpdate.totalCreditsSpan.textContent = (
+                data.total_credits || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.totalAdjustmentsSpan)
+              fieldsToUpdate.totalAdjustmentsSpan.textContent = (
+                data.total_adjustments || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.grandTotalSpan)
+              fieldsToUpdate.grandTotalSpan.textContent = (
+                data.taxable_income_before || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.grandTotalNewSpan)
+              fieldsToUpdate.grandTotalNewSpan.textContent = (
+                data.taxable_income_after || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.taxDisplay)
+              fieldsToUpdate.taxDisplay.textContent = (
+                data.tax || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.totalTaxLiabilityDisplay)
+              fieldsToUpdate.totalTaxLiabilityDisplay.textContent = (
+                data.total_tax_liability || 0
+              ).toLocaleString();
+
+            // Handle Net Tax Payable and Refundable - CRITICAL PART
+            const netTax = parseFloat(data.net_tax) || 0;
+            console.log("Net Tax value:", netTax);
+
+            if (fieldsToUpdate.netTaxDisplay)
+              fieldsToUpdate.netTaxDisplay.textContent =
+                netTax < 0 ? "0" : netTax.toLocaleString();
+
+            if (fieldsToUpdate.netTaxDisplay2)
+              fieldsToUpdate.netTaxDisplay2.textContent =
+                netTax < 0 ? "0" : netTax.toLocaleString();
+
+            if (fieldsToUpdate.refundableDisplay) {
+              // If netTax is negative, show positive refund amount, otherwise show 0
+              fieldsToUpdate.refundableDisplay.textContent =
+                netTax < 0 ? Math.abs(netTax).toLocaleString() : "0";
+              console.log(
+                "Refundable set to:",
+                fieldsToUpdate.refundableDisplay.textContent,
+              );
+            }
+
+            // Update colors based on value
+            if (netTax < 0) {
+              // Refund scenario
+              if (fieldsToUpdate.netTaxDisplay2?.parentElement) {
+                fieldsToUpdate.netTaxDisplay2.parentElement.style.background =
+                  "#718096";
+              }
+              if (fieldsToUpdate.refundableDisplay?.parentElement) {
+                fieldsToUpdate.refundableDisplay.parentElement.style.background =
+                  "#38a169";
+              }
+            } else {
+              // Tax payable scenario
+              if (fieldsToUpdate.netTaxDisplay2?.parentElement) {
+                fieldsToUpdate.netTaxDisplay2.parentElement.style.background =
+                  "#e53e3e";
+              }
+              if (fieldsToUpdate.refundableDisplay?.parentElement) {
+                fieldsToUpdate.refundableDisplay.parentElement.style.background =
+                  "#38a169";
+              }
+            }
+
+            // Update credit badges
+            if (fieldsToUpdate.charityCredit)
+              fieldsToUpdate.charityCredit.textContent = (
+                data.charity_credit || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.pensionCredit)
+              fieldsToUpdate.pensionCredit.textContent = (
+                data.pension_credit || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.houseLoanCredit)
+              fieldsToUpdate.houseLoanCredit.textContent = (
+                data.house_loan_credit || 0
+              ).toLocaleString();
+          } catch (err) {
+            if (err.name !== "AbortError") console.error("Update failed:", err);
+          }
+        };
+
+        // Create debounced version
+        debouncedUpdate = debounce(window.updateCalculations, 250);
+
+        // Event Listeners
+        form.querySelectorAll(".number-format").forEach((input) => {
+          input.addEventListener("input", debouncedUpdate);
+        });
+
+        // Radio Button Listeners
+        document
+          .querySelectorAll('input[type="radio"][name="vehicle_usage_type"]')
+          .forEach((radio) => {
+            radio.addEventListener("change", debouncedUpdate);
+          });
+
+        document
+          .querySelectorAll('input[type="radio"][name="retirement_status"]')
+          .forEach((radio) => {
+            radio.addEventListener("change", debouncedUpdate);
+          });
+
+        document.querySelectorAll('input[name="pf_type"]').forEach((radio) => {
+          radio.addEventListener("change", debouncedUpdate);
+        });
+
+        document
+          .querySelectorAll('input[name="receiving_pension"]')
+          .forEach((radio) => {
+            radio.addEventListener("change", debouncedUpdate);
+          });
+
+        // Number formatting
+        document.querySelectorAll(".number-format").forEach((input) => {
+          input.addEventListener("input", function () {
+            let rawValue = this.value.replace(/,/g, "");
+            let value = parseFloat(rawValue) || 0;
+            if (value > 1000000000) value = 1000000000;
+            this.value = value.toLocaleString();
+          });
+        });
+
+        // Initial calculation
+        setTimeout(() => {
+          window.updateCalculations();
+        }, 500);
+      });
+
+      // Auto-fill medical allowance exemption
+      document.addEventListener("DOMContentLoaded", function () {
+        const medicalField = document.getElementById("medical");
+        const salaryField = document.getElementById("salary");
+        const medicalExemptionField =
+          document.getElementById("medical_expenses");
+
+        if (medicalField) {
+          medicalField.addEventListener("input", function () {
+            const medicalAllowance =
+              parseFloat(this.value.replace(/,/g, "")) || 0;
+            const basicSalary =
+              parseFloat(salaryField?.value.replace(/,/g, "")) || 0;
+            const maxExemption = basicSalary * 0.1;
+            const autoFillAmount = Math.min(medicalAllowance, maxExemption);
+
+            if (medicalExemptionField) {
+              medicalExemptionField.value = autoFillAmount.toLocaleString();
+            }
+
+            if (typeof window.updateCalculations === "function") {
+              window.updateCalculations();
+            }
+          });
+        }
+
+        if (salaryField) {
+          salaryField.addEventListener("input", function () {
+            const medicalAllowance =
+              parseFloat(medicalField?.value.replace(/,/g, "")) || 0;
+            const basicSalary = parseFloat(this.value.replace(/,/g, "")) || 0;
+
+            if (medicalAllowance > 0 && medicalExemptionField) {
+              const maxExemption = basicSalary * 0.1;
+              const autoFillAmount = Math.min(medicalAllowance, maxExemption);
+              medicalExemptionField.value = autoFillAmount.toLocaleString();
+
+              if (typeof window.updateCalculations === "function") {
+                window.updateCalculations();
+              }
+            }
+          });
+        }
+      });
+    </script>
+
+    <!-- RESET ALL FIELDS ON PAGE LOAD -->
+    <script>
+      // ===== COMPLETE RESET FUNCTION =====
+      function resetAllFormFields() {
+        console.log("Resetting ALL form fields...");
+
+        // 1. Reset ALL input fields
+        document
+          .querySelectorAll('input[type="text"], input[type="number"]')
+          .forEach((input) => {
+            input.value = "0";
+          });
+
+        // 2. Reset ALL radio buttons to defaults
+        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+          if (radio.name === "receiving_pension" && radio.value === "no") {
+            radio.checked = true;
+          }
+          if (
+            radio.name === "retirement_status" &&
+            radio.value === "still_employed"
+          ) {
+            radio.checked = true;
+          }
+          if (
+            radio.name === "vehicle_usage_type" &&
+            radio.value === "personal_only"
+          ) {
+            radio.checked = true;
+          }
+          if (radio.name === "pf_type" && radio.value === "government") {
+            radio.checked = true;
+          }
+        });
+
+        // 3. Reset ALL display spans
+        const displaySpans = [
+          "total-gross",
+          "total-cash",
+          "total-perks",
+          "total-deductions",
+          "total-credits",
+          "total-adjustments",
+          "grand-total-cash",
+          "grand-total-new",
+          "tax-display",
+          "total-tax-liability-display",
+          "net-tax-display",
+          "net-tax-display2",
+          "refundable-display",
+          "charity-credit-display",
+          "pension-credit-display",
+          "house-loan-credit-display",
+        ];
+
+        displaySpans.forEach((spanId) => {
+          const span = document.getElementById(spanId);
+          if (span) {
+            span.textContent = "0";
+          }
+        });
+
+        // 4. Reset credit badges
+        document.querySelectorAll(".credit-badge").forEach((badge) => {
+          badge.textContent = "0";
+        });
+
+        // 5. Reset colors
+        const netPayable = document.querySelector(".net-payable");
+        const refundable = document.querySelector(".refundable");
+
+        if (netPayable) netPayable.style.background = "#e53e3e";
+        if (refundable) refundable.style.background = "#38a169";
+
+        console.log("Reset complete!");
+
+        // Trigger calculation
+        if (typeof window.updateCalculations === "function") {
+          setTimeout(() => {
+            window.updateCalculations();
+          }, 100);
+        }
+      }
+
+      // ===== PAGE LOAD RESET =====
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Page loaded - resetting form...");
+        setTimeout(() => {
+          resetAllFormFields();
+        }, 300);
+
+        window.addEventListener("pageshow", function (event) {
+          if (event.persisted) {
+            console.log("Page restored from cache - resetting...");
+            setTimeout(() => {
+              resetAllFormFields();
+            }, 300);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
