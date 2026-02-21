@@ -3,28 +3,25 @@
   "builds": [
     {
       "src": "api/index.py",
-      "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.9"
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/api/health",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/calculate-advance-tax",
-      "dest": "api/index.py"
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
     },
     {
       "src": "/css/(.*)",
       "dest": "/css/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/calculate-advance-tax",
       "dest": "/api/index.py"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
     }
   ]
 }
