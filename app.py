@@ -4,6 +4,7 @@ from flask_cors import CORS
 import os
 from tax_calculations import calculate_advance_tax_logic
 
+
 # Create Flask app FIRST
 app = Flask(__name__, 
            static_folder='.', 
@@ -13,6 +14,14 @@ app = Flask(__name__,
 # Configure CORS for production
 CORS(app, origins=['*'])  # You can restrict this to your domain later
 
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'healthy', 
+        'message': 'Tax Calculator API is running',
+        'routes': ['/', '/css/', '/js/', '/images/', '/calculate-advance-tax', '/api/health']
+    })
 # THEN add the before_request handler (after app is created)
 @app.before_request
 def handle_preflight():
