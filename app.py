@@ -2,8 +2,31 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
-from tax_calculations import calculate_advance_tax_logic
+import sys
+import traceback
 
+print("="*50)
+print("Starting app.py")
+print(f"Current directory: {os.getcwd()}")
+print(f"Files in current directory: {os.listdir('.')}")
+print("="*50)
+
+# Check if tax_calculations.py exists
+if os.path.exists('tax_calculations.py'):
+    print("✅ tax_calculations.py found")
+else:
+    print("❌ tax_calculations.py NOT found")
+    print(f"Looking for .py files: {[f for f in os.listdir('.') if f.endswith('.py')]}")
+
+try:
+    from tax_calculations import calculate_advance_tax_logic
+    print("✅ Successfully imported calculate_advance_tax_logic")
+except Exception as e:
+    print("❌ Error importing tax_calculations:")
+    print(str(e))
+    print(traceback.format_exc())
+    # Don't raise here, let the app try to start
+    calculate_advance_tax_logic = None
 
 # Create Flask app FIRST
 app = Flask(__name__, 
@@ -11,27 +34,14 @@ app = Flask(__name__,
            static_url_path='',
            template_folder='.')
 
-# Configure CORS for production
-CORS(app, origins=['*'])  # You can restrict this to your domain later
+# Configure CORS
+CORS(app, origins=['*'])
 
-
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    return jsonify({
-        'status': 'healthy', 
-        'message': 'Tax Calculator API is running',
-        'routes': ['/', '/css/', '/js/', '/images/', '/calculate-advance-tax', '/api/health']
-    })
-# THEN add the before_request handler (after app is created)
 @app.before_request
 def handle_preflight():
     if request.method == "OPTIONS":
         response = app.make_default_options_response()
         return response
-
-# Create necessary folders (Vercel will have read-only filesystem)
-# Remove the folder creation code as Vercel filesystem is read-only
-# The folders should already exist in your repository
 
 # --- Routes ---
 @app.route('/')
@@ -50,14 +60,24 @@ def serve_js(filename):
 def serve_images(filename):
     return send_from_directory('images', filename)
 
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'healthy',
+        'message': 'Tax Calculator API is running',
+        'files': os.listdir('.'),
+        'tax_calculations_loaded': calculate_advance_tax_logic is not None
+    })
+
 @app.route('/calculate-advance-tax', methods=['POST', 'OPTIONS'])
 def calculate_advance_tax():
-    # Handle OPTIONS request for CORS
     if request.method == "OPTIONS":
         return {}, 200
+    
+    if calculate_advance_tax_logic is None:
+        return jsonify({'error': 'Tax calculation module not loaded'}), 500
         
     try:
-        # Handle both form data and JSON
         if request.is_json:
             form_data = request.get_json()
         else:
@@ -66,25 +86,15 @@ def calculate_advance_tax():
         response = calculate_advance_tax_logic(form_data)
         return jsonify(response)
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        return jsonify({
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
 
-# Health check endpoint (useful for Vercel)
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    return jsonify({'status': 'healthy', 'message': 'Tax Calculator API is running'})
+@app.route('/api/test', methods=['GET'])
+def test():
+    return jsonify({'message': 'API is working!'})
 
 # This is for local development only
 if __name__ == '__main__':
-    print("\n" + "="*60)
-    print("💰 TAX CALCULATOR SERVER")
-    print("="*60)
-    print(f"\n🔗 Local URL: http://localhost:5000")
-    print("="*60)
-    print("\nPress Ctrl+C to stop the server")
-    print("="*60)
-    
-    app.run(
-        host='0.0.0.0',
-        port=5000,
-        debug=True
-    )
+    app.run(host='0.0.0.0', port=5000, debug=True)
