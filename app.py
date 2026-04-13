@@ -1,47 +1,28 @@
-# app.py - Main Flask app for Vercel
+# app.py - Main Flask app with CLI arguments
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
-import sys
-import traceback
+import argparse
+from tax_calculations import calculate_advance_tax_logic
 
-print("="*50)
-print("Starting app.py")
-print(f"Current directory: {os.getcwd()}")
-print(f"Files in current directory: {os.listdir('.')}")
-print("="*50)
+# Parse command line arguments
+parser = argparse.ArgumentParser(description='Tax Calculator Server')
+parser.add_argument('--public', action='store_true', help='Create public URL with ngrok')
+parser.add_argument('--ngrok-token', type=str, help='Ngrok authtoken (optional)')
+parser.add_argument('--port', type=int, default=5000, help='Port to run on (default: 5000)')
+parser.add_argument('--host', type=str, default='0.0.0.0', help='Host to bind to (default: 0.0.0.0)')
+parser.add_argument('--debug', action='store_true', help='Run in debug mode')
 
-# Check if tax_calculations.py exists
-if os.path.exists('tax_calculations.py'):
-    print("✅ tax_calculations.py found")
-else:
-    print("❌ tax_calculations.py NOT found")
-    print(f"Looking for .py files: {[f for f in os.listdir('.') if f.endswith('.py')]}")
+args = parser.parse_args()
 
-try:
-    from tax_calculations import calculate_advance_tax_logic
-    print("✅ Successfully imported calculate_advance_tax_logic")
-except Exception as e:
-    print("❌ Error importing tax_calculations:")
-    print(str(e))
-    print(traceback.format_exc())
-    # Don't raise here, let the app try to start
-    calculate_advance_tax_logic = None
+# Create Flask app
+app = Flask(__name__, static_folder='.', static_url_path='')
+CORS(app)
 
-# Create Flask app FIRST
-app = Flask(__name__, 
-           static_folder='.', 
-           static_url_path='',
-           template_folder='.')
-
-# Configure CORS
-CORS(app, origins=['*'])
-
-@app.before_request
-def handle_preflight():
-    if request.method == "OPTIONS":
-        response = app.make_default_options_response()
-        return response
+# Create necessary folders
+folders = ['css', 'js', 'images']
+for folder in folders:
+    os.makedirs(folder, exist_ok=True)
 
 # --- Routes ---
 @app.route('/')
@@ -60,41 +41,87 @@ def serve_js(filename):
 def serve_images(filename):
     return send_from_directory('images', filename)
 
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    return jsonify({
-        'status': 'healthy',
-        'message': 'Tax Calculator API is running',
-        'files': os.listdir('.'),
-        'tax_calculations_loaded': calculate_advance_tax_logic is not None
-    })
-
-@app.route('/calculate-advance-tax', methods=['POST', 'OPTIONS'])
+@app.route('/calculate-advance-tax', methods=['POST'])
 def calculate_advance_tax():
-    if request.method == "OPTIONS":
-        return {}, 200
-    
-    if calculate_advance_tax_logic is None:
-        return jsonify({'error': 'Tax calculation module not loaded'}), 500
-        
     try:
-        if request.is_json:
-            form_data = request.get_json()
-        else:
-            form_data = request.form.to_dict()
-        
+        form_data = request.form.to_dict()
         response = calculate_advance_tax_logic(form_data)
         return jsonify(response)
     except Exception as e:
-        return jsonify({
-            'error': str(e),
-            'traceback': traceback.format_exc()
-        }), 500
+        return jsonify({'error': str(e)}), 400
 
-@app.route('/api/test', methods=['GET'])
-def test():
-    return jsonify({'message': 'API is working!'})
-
-# This is for local development only
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    print("\n" + "="*60)
+    print("💰 TAX CALCULATOR SERVER")
+    print("="*60)
+    
+    public_url = None
+    
+    # Handle ngrok if --public flag is set
+    if args.public:
+        try:
+            from pyngrok import ngrok
+            
+            # Get ngrok token
+            token = args.ngrok_token
+            if not token:
+                print("\n🔑 Ngrok Setup Required:")
+                print("-"*30)
+                print("1. Get free token from: https://dashboard.ngrok.com")
+                print("2. Sign up if you haven't")
+                print("3. Get authtoken from dashboard")
+                token = input("\nEnter your ngrok authtoken: ").strip()
+            
+            if token:
+                ngrok.set_auth_token(token)
+                public_url = ngrok.connect(args.port).public_url
+                print(f"\n✅ PUBLIC URL CREATED!")
+                print(f"🌍 {public_url}")
+                
+                # Create WhatsApp message
+                whatsapp_msg = f"""*TAX CALCULATOR TEST* 🧮
+
+Hey! Please test my salary tax calculator:
+
+🔗 *Live URL:* {public_url}
+
+*Features:*
+✅ Automatic tax calculations
+✅ Real-time updates
+✅ Pakistan tax slabs
+✅ Pension tax rules
+
+*Quick Test:*
+1. Enter any salary amount
+2. Add some allowances
+3. See tax calculated instantly
+
+Let me know if it works! 🚀"""
+                
+                print("\n📱 WhatsApp message ready to share!")
+                print("-"*40)
+                print(whatsapp_msg)
+                print("-"*40)
+            else:
+                print("\n⚠️  No ngrok token provided. Running locally only.")
+                
+        except ImportError:
+            print("\n⚠️  pyngrok not installed. Install with: pip install pyngrok")
+            print("Running locally only.")
+        except Exception as e:
+            print(f"\n⚠️  Ngrok error: {e}")
+            print("Running locally only.")
+    
+    print(f"\n🔗 Local URL: http://localhost:{args.port}")
+    if public_url:
+        print(f"🌍 Public URL: {public_url}")
+    print("="*60)
+    print("\nPress Ctrl+C to stop the server")
+    print("="*60)
+    
+    # Run Flask
+    app.run(
+        host=args.host,
+        port=args.port,
+        debug=args.debug or (not args.public)  # Debug mode unless public
+    )
