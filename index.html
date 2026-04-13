@@ -701,7 +701,7 @@
               </h1>
 
               <!-- ===== TAX CREDITS ===== -->
-              <div class="form-section">
+               <div class="form-section">
                 <h3>Tax Credits</h3>
                 <div class="form-grid">
                   <div class="credit-group">
@@ -759,7 +759,7 @@
                   Total Credits:
                   <span id="total-credits" class="total-number">0</span>
                 </div>
-              </div>
+              </div> 
 
               <!-- ===== SUMMARY ===== -->
               <h1 class="grand-total-line">
@@ -951,7 +951,6 @@
           netTax2: fieldsToUpdate.netTaxDisplay2,
           refundable: fieldsToUpdate.refundableDisplay,
         });
-        
 
         let debounceTimer;
         let latestController = null;
@@ -967,47 +966,20 @@
         window.updateCalculations = async function () {
           if (latestController) latestController.abort();
           latestController = new AbortController();
-
-          // Collect form data
           const formData = new FormData(form);
 
-          // Convert FormData to JSON object
-          const jsonData = {};
-          formData.forEach((value, key) => {
-            // Skip empty CSRF token
-            if (key === "csrf_token" && !value) return;
-
-            // Convert number strings to numbers, remove commas
-            if (value.includes(",")) {
-              jsonData[key] = parseFloat(value.replace(/,/g, "")) || 0;
-            } else if (!isNaN(parseFloat(value)) && isFinite(value)) {
-              jsonData[key] = parseFloat(value) || 0;
-            } else {
-              jsonData[key] = value;
-            }
-          });
-
           try {
-            // Use relative URL - this will work on both local and Vercel
-            const apiUrl = "/calculate-advance-tax";
-
-            const res = await fetch(apiUrl, {
+            const baseUrl = window.location.origin;
+            const res = await fetch(baseUrl + "/calculate-advance-tax", {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(jsonData),
+              body: formData,
               signal: latestController.signal,
             });
 
-            if (!res.ok) {
-              const errorText = await res.text();
-              throw new Error(`Network Error: ${res.status} - ${errorText}`);
-            }
-
+            if (!res.ok) throw new Error("Network Error");
             const data = await res.json();
 
-            console.log("API Response:", data);
+            console.log("API Response:", data); // Debug log
 
             // Update all fields with proper number formatting
             if (fieldsToUpdate.totalGrossSpan)
@@ -1060,8 +1032,9 @@
                 data.total_tax_liability || 0
               ).toLocaleString();
 
-            // Handle Net Tax Payable and Refundable
+            // Handle Net Tax Payable and Refundable - CRITICAL PART
             const netTax = parseFloat(data.net_tax) || 0;
+            console.log("Net Tax value:", netTax);
 
             if (fieldsToUpdate.netTaxDisplay)
               fieldsToUpdate.netTaxDisplay.textContent =
@@ -1072,12 +1045,18 @@
                 netTax < 0 ? "0" : netTax.toLocaleString();
 
             if (fieldsToUpdate.refundableDisplay) {
+              // If netTax is negative, show positive refund amount, otherwise show 0
               fieldsToUpdate.refundableDisplay.textContent =
                 netTax < 0 ? Math.abs(netTax).toLocaleString() : "0";
+              console.log(
+                "Refundable set to:",
+                fieldsToUpdate.refundableDisplay.textContent,
+              );
             }
 
             // Update colors based on value
             if (netTax < 0) {
+              // Refund scenario
               if (fieldsToUpdate.netTaxDisplay2?.parentElement) {
                 fieldsToUpdate.netTaxDisplay2.parentElement.style.background =
                   "#718096";
@@ -1087,6 +1066,7 @@
                   "#38a169";
               }
             } else {
+              // Tax payable scenario
               if (fieldsToUpdate.netTaxDisplay2?.parentElement) {
                 fieldsToUpdate.netTaxDisplay2.parentElement.style.background =
                   "#e53e3e";
@@ -1096,12 +1076,27 @@
                   "#38a169";
               }
             }
+
+            // Update credit badges
+            if (fieldsToUpdate.charityCredit)
+              fieldsToUpdate.charityCredit.textContent = (
+                data.charity_credit || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.pensionCredit)
+              fieldsToUpdate.pensionCredit.textContent = (
+                data.pension_credit || 0
+              ).toLocaleString();
+
+            if (fieldsToUpdate.houseLoanCredit)
+              fieldsToUpdate.houseLoanCredit.textContent = (
+                data.house_loan_credit || 0
+              ).toLocaleString();
           } catch (err) {
-            if (err.name !== "AbortError") {
-              console.error("Update failed:", err);
-            }
+            if (err.name !== "AbortError") console.error("Update failed:", err);
           }
         };
+
         // Create debounced version
         debouncedUpdate = debounce(window.updateCalculations, 250);
 

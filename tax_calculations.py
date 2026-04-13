@@ -277,10 +277,7 @@ def calculate_advance_tax_logic(form_data):
             pension_tax_amount = calculate_pension_tax(pension_amount, age, retirement_status)
         
         # Total tax
-               # Total tax liability before adjustments
         total_tax_liability = tax_after_credits + pension_tax_amount
-        
-        # SIMPLE FIX: Allow negative values (refund) in net_tax
         net_tax = total_tax_liability - total_adjustments
         
         # Prepare response
