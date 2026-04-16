@@ -280,8 +280,10 @@ def calculate_advance_tax_logic(form_data):
         total_tax_liability = tax_after_credits + pension_tax_amount
         net_tax = total_tax_liability - total_adjustments
         
+        
         # Prepare response
         response = {
+            
             'total_gross': round(total_gross, 2),
             'total_cash': round(total_cash, 2),
             'total_perks': round(total_perks, 2),
@@ -302,6 +304,9 @@ def calculate_advance_tax_logic(form_data):
             'age': int(age),
             'retirement_status': retirement_status,
             'receiving_pension': receiving_pension,  # Add this to response
+            'company_car_value': round(company_car_value, 2),
+            'housing_facility': round(housing_facility, 2),
+            'concessional_loan': round(concessional_loan, 2),
             'auto_calculated': True
         }
         

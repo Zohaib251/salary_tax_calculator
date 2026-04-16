@@ -8,6 +8,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/layout.css" />
     <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/iris-tables.css" />
   </head>
   <body>
     <main>
@@ -701,7 +702,7 @@
               </h1>
 
               <!-- ===== TAX CREDITS ===== -->
-               <div class="form-section">
+              <div class="form-section">
                 <h3>Tax Credits</h3>
                 <div class="form-grid">
                   <div class="credit-group">
@@ -759,7 +760,7 @@
                   Total Credits:
                   <span id="total-credits" class="total-number">0</span>
                 </div>
-              </div> 
+              </div>
 
               <!-- ===== SUMMARY ===== -->
               <h1 class="grand-total-line">
@@ -914,9 +915,60 @@
           </div>
         </div>
       </div>
+      <!-- Add this after the final results div -->
+      <div style="text-align: center; margin: 30px 0">
+        <button id="toggleIrisTables" class="btn-iris-toggle">
+          Show IRIS Portal Mapping
+        </button>
+      </div>
+
+      <div id="irisTablesContainer" style="display: none">
+        <!-- Table 1 -->
+        <div class="form-section">
+          <h3>Table 1: Detailed Breakdown (Field by Field)</h3>
+          <div class="table-responsive">
+            <table class="iris-table" id="detailedTable">
+              <thead>
+                <tr>
+                  <th>Field Name</th>
+                  <th>IRIS Code</th>
+                  <th>Calculated Value (PKR)</th>
+                </tr>
+              </thead>
+              <tbody id="detailedTableBody">
+                <tr>
+                  <td colspan="3">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Table 2 -->
+        <div class="form-section">
+          <h3>Table 2: Consolidated Summary (Grouped by IRIS Code)</h3>
+          <div class="table-responsive">
+            <table class="iris-table" id="summaryTable">
+              <thead>
+                <tr>
+                  <th>Group Name</th>
+                  <th>IRIS Code</th>
+                  <th>Total Value (PKR)</th>
+                </tr>
+              </thead>
+              <tbody id="summaryTableBody">
+                <tr>
+                  <td colspan="3">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- ===== JAVASCRIPT ===== -->
+    <script src="js/iris-tables.js"></script>
     <script>
       // Declare these variables globally
       let debouncedUpdate;
@@ -946,6 +998,8 @@
           pensionCredit: document.getElementById("pension-credit-display"),
           houseLoanCredit: document.getElementById("house-loan-credit-display"),
         };
+        // Add this right after your fieldsToUpdate object
+        let latestCalculationData = null; // Store latest calculation data for IRIS tables
 
         console.log("Elements found:", {
           netTax2: fieldsToUpdate.netTaxDisplay2,
@@ -980,6 +1034,223 @@
             const data = await res.json();
 
             console.log("API Response:", data); // Debug log
+
+            // Store latest calculation data for IRIS tables
+            latestCalculationData = {
+              // Gross Salary
+              basic_salary: parseFloat(
+                document.getElementById("salary")?.value.replace(/,/g, "") || 0,
+              ),
+              utility: parseFloat(
+                document.getElementById("utility")?.value.replace(/,/g, "") ||
+                  0,
+              ),
+              house_rent: parseFloat(
+                document
+                  .getElementById("house_rent")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              medical: parseFloat(
+                document.getElementById("medical")?.value.replace(/,/g, "") ||
+                  0,
+              ),
+              other_allowances: parseFloat(
+                document
+                  .getElementById("other_allowances")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+
+              // Pension
+              pension_amount: parseFloat(
+                document
+                  .getElementById("pension_amount")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+
+              // Cash Benefits
+              lfa: parseFloat(
+                document.getElementById("lfa")?.value.replace(/,/g, "") || 0,
+              ),
+              bonus: parseFloat(
+                document.getElementById("bonus")?.value.replace(/,/g, "") || 0,
+              ),
+              fuel_allowance: parseFloat(
+                document
+                  .getElementById("fuel_allowance")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              special_work_allowance: parseFloat(
+                document
+                  .getElementById("special_work_allowance")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              overtime: parseFloat(
+                document.getElementById("overtime")?.value.replace(/,/g, "") ||
+                  0,
+              ),
+              vehicle_purchase: parseFloat(
+                document
+                  .getElementById("vehicle_purchase")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              house_loan_subsidy: parseFloat(
+                document
+                  .getElementById("house_loan_subsidy")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              obligations_paid: parseFloat(
+                document
+                  .getElementById("obligations_paid")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              salary_tax_paid: parseFloat(
+                document
+                  .getElementById("salary_tax_paid")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              termination_amount: parseFloat(
+                document
+                  .getElementById("termination_amount")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              other_cash: parseFloat(
+                document
+                  .getElementById("other_cash")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+
+              // Perks
+              servant_salary_paid: parseFloat(
+                document
+                  .getElementById("servant_salary_paid")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              kids_education: parseFloat(
+                document
+                  .getElementById("kids_education")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              car_lease: parseFloat(
+                document.getElementById("car_lease")?.value.replace(/,/g, "") ||
+                  0,
+              ),
+              utility_reimbursement: parseFloat(
+                document
+                  .getElementById("utility_reimbursement")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+
+              // Company Car (calculated value from backend)
+              company_car_value: data.company_car_value || 0,
+
+              // Provident Fund
+              employer_pf_contribution: parseFloat(
+                document
+                  .querySelector('input[name="employer_pf_contribution"]')
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              pf_interest: parseFloat(
+                document
+                  .querySelector('input[name="pf_interest"]')
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              pf_accumulated_balance: parseFloat(
+                document
+                  .querySelector('input[name="pf_accumulated_balance"]')
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+
+              // Housing & Loan
+              housing_facility: data.housing_facility || 0,
+              concessional_loan: data.concessional_loan || 0,
+
+              // Other Perks
+              asset_transfer: parseFloat(
+                document
+                  .getElementById("asset_transfer")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              any_other_perk: parseFloat(
+                document
+                  .getElementById("any_other_perk")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+
+              // Deductions
+              zakat: parseFloat(
+                document.getElementById("zakat")?.value.replace(/,/g, "") || 0,
+              ),
+              num_children: parseInt(
+                document.getElementById("num_children")?.value || 0,
+              ),
+              education_expenses: parseFloat(
+                document
+                  .getElementById("education_expenses")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              medical_exemption: parseFloat(
+                document
+                  .getElementById("medical_expenses")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+
+              // Tax Credits (from backend response)
+              charity_credit: data.charity_credit || 0,
+              pension_credit: data.pension_credit || 0,
+              house_loan_credit: data.house_loan_credit || 0,
+
+              // Adjustable Taxes
+              annual_token_tax: parseFloat(
+                document
+                  .getElementById("annual_token_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              vehicle_purchase_tax: parseFloat(
+                document
+                  .getElementById("vehicle_purchase_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              cash_withdrawal_tax: parseFloat(
+                document
+                  .getElementById("cash_withdrawal_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              electricity_bill_tax: parseFloat(
+                document
+                  .getElementById("electricity_bill_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              property_purchase_tax: parseFloat(
+                document
+                  .getElementById("property_purchase_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              property_sale_tax: parseFloat(
+                document
+                  .getElementById("property_sale_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              foreign_txn_tax: parseFloat(
+                document
+                  .getElementById("foreign_txn_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              telecom_tax: parseFloat(
+                document
+                  .getElementById("telecom_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+              function_tax: parseFloat(
+                document
+                  .getElementById("function_tax")
+                  ?.value.replace(/,/g, "") || 0,
+              ),
+            };
+
+            // Setup or update IRIS tables with latest data
+            if (typeof setupIrisToggle === "function") {
+              setupIrisToggle(latestCalculationData);
+            }
 
             // Update all fields with proper number formatting
             if (fieldsToUpdate.totalGrossSpan)
@@ -1263,6 +1534,17 @@
 
         if (netPayable) netPayable.style.background = "#e53e3e";
         if (refundable) refundable.style.background = "#38a169";
+
+        // Clear IRIS tables if visible
+        const irisContainer = document.getElementById("irisTablesContainer");
+        if (irisContainer) {
+          irisContainer.style.display = "none";
+          const toggleBtn = document.getElementById("toggleIrisTables");
+          if (toggleBtn) {
+            toggleBtn.textContent = "Show IRIS Portal Mapping";
+            toggleBtn.classList.remove("active");
+          }
+        }
 
         console.log("Reset complete!");
 

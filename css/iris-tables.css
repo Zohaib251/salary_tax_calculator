@@ -1,0 +1,77 @@
+/* IRIS Tables Styling */
+.btn-iris-toggle {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-iris-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-iris-toggle.active {
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.iris-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.iris-table thead {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: white;
+}
+
+.iris-table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.iris-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #2d3748;
+}
+
+.iris-table tbody tr:hover {
+    background: #f7fafc;
+}
+
+.iris-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Group rows in summary table */
+.iris-table tbody tr.group-row {
+    background: #edf2f7;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .iris-table th,
+    .iris-table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+}
